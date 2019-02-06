@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cluj-Napoca weather</title>
+</head>
+<body>
+	<input type="text" name="City" id="city" placeholder="Enter a different city" style="float: right">
+	<div id="preference">
+		<label for="celsius">Celsius</label>
+		<input type="radio" name="pref" value="Celsius" id="celsius">
+		<label for="fahrenheit">Fahrenheit</label>
+		<input type="radio" name="pref" value="Fahrenheit" id="fahrenheit">
+	</div>
+	<p id="cookies">In cookies: no prefference</p>
+	<p id="local-storage">In local storage</p>
+
+	<h2 id="temperature" align="center">Loading temperature in Cluj-Napoca</h2>
+
+	<p>SAFARI: SecurityError: The operation is insecure -> Develop -> Disable Local File Restrictions</p>
+	<p>CHROME: Cookies don't work, but Local Storage does !!!</p>
+
+	<script src="./js/script.js"></script>
+</body>
+</html>
