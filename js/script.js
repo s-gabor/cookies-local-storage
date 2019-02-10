@@ -44,13 +44,7 @@ const checkCookies = () => {
 
 const checkLocalStorage = () => {
 	let degreePref, degree;
-	// catch and silence possible browser errors when searching the local storage
-	try {
-		degree = localStorage.getItem('degree');
-	} 
-	catch(err) {
-		console.log(err, 'Error caught and SILENCED!');
-	}
+	degree = window.localStorage.getItem('degree');
 	// update degree prefference if found in local storage
 	if (degree) {
 		degreePref = degree;
@@ -81,13 +75,7 @@ window.addEventListener('DOMContentLoaded', displayTemperature);
 // update degree value in cookies on user selection
 document.getElementById('preference').addEventListener('change', (event) => {
 	document.cookie = `degree=${event.target.value}`;
-	// catch and silence possible browser errors when accessing the local storage
-	try {
-		localStorage.setItem('degree', event.target.value);
-	} 
-	catch(err) {
-		console.log(err, 'Error caught and SILENCED!');
-	}
+	window.localStorage.setItem('degree', event.target.value);
 	displayTemperature();
 })
 
