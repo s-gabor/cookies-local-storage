@@ -1,0 +1,21 @@
+div ul li p {
+	display:inline-block;
+}
+
+ul {
+	padding: 0;
+}
+
+ul li {display: inline-block;}
+ul li:hover ul {display: block;}
+
+ul li ul {
+	display: none;
+}
+
+ul li ul li { 
+	padding: 0px 10px;
+	display: block; 
+	background-color: lightgray;
+}
+

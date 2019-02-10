@@ -20,7 +20,7 @@ const loadData = (degreePref) => {
 
 
 const checkCookies = () => {
-	let degreePref = 'Celsius'; // default value if no user prefference in cookies
+	let degreePref;// = 'Celsius'; // default value if no user prefference in cookies
 	let cookiesList = document.cookie.split('; ');
 	// update degree prefference if found in cookies
 	for (let cookie of cookiesList) {
@@ -36,7 +36,7 @@ const checkCookies = () => {
 
 
 const checkLocalStorage = () => {
-	let degreePref = 'Celsius'; // default value if no user prefference in local storage
+	let degreePref;// = 'Celsius'; // default value if no user prefference in local storage
 	// update degree prefference if found in local storage
 	let degree = localStorage.getItem('degree');
 	if (degree) {
@@ -48,11 +48,19 @@ const checkLocalStorage = () => {
 
 
 const displayTemperature = () => {
-	// get user degree prefference from cookies
+	let degreePref;
 	const degreePrefCookies = checkCookies();
-	// get user degree prefference from local storage
 	const degreePrefLocalStorage = checkLocalStorage();
-	loadData(degreePrefCookies);
+	if (degreePrefCookies) {
+		degreePref = degreePrefCookies;
+		console.log('User degree prefference found in cookies.');
+	} else if (degreePrefLocalStorage) {
+		degreePref = degreePrefLocalStorage;
+		console.log('User degree prefference found in local storage.');
+	} else {
+		degreePref = 'Celsius';
+	}
+	loadData(degreePref);
 }
 
 
@@ -64,11 +72,6 @@ document.getElementById('preference').addEventListener('change', (event) => {
 	document.cookie = `degree=${event.target.value}`;
 	localStorage.setItem('degree', event.target.value);
 	displayTemperature();
-
-	console.log('Client side data:');
-	console.log('Cookies: ', document.cookie);
-	console.log('Local Storage: ', localStorage);
-	console.log('');
 })
 
 
@@ -77,17 +80,3 @@ document.getElementById('city').addEventListener('keyup', (event) => {
 	(event.target.value) ? urlCity = event.target.value : urlCity = 'Cluj-Napoca';
 	displayTemperature();
 })
-
-
-
-// const setCookie = (cname, cvalue, extraMinnutes) => {
-// 	let date = new Date();
-// 	date.setTime(date.getTime() + (extraMinnutes * 60 * 1000));
-// 	let expires = date.getTime();
-// 	document.cookie = `${cname}=${cvalue}; expires=${expires}`;
-// }
-
-// const deleteCookie = (cname, cvalue, now=new Date()) => {
-// 	document.cookie = `${cname}=${cvalue}; expires=${now}`;
-// 	console.log(document.cookie);
-// }
