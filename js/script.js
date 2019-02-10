@@ -1,6 +1,12 @@
 const urlBase = 'https://api.wunderground.com/api/cfbfc5f603141e07/conditions/q/RO/';
 let urlCity = 'Cluj-Napoca';
 const temp = document.getElementById('temperature');
+// TO DO: 
+// Is is better to declare degreePref here as global variable?
+// and remove it's declaration from checkCookie, checkLocalStorage and displayTemperature
+// and remove the param from loadData
+// and remove the return statements from checkCookie and checkLocalStorage 
+// --> functions will update the global degreePref.
 
 
 const loadData = (degreePref) => {
@@ -20,8 +26,9 @@ const loadData = (degreePref) => {
 
 
 const checkCookies = () => {
-	let degreePref;// = 'Celsius'; // default value if no user prefference in cookies
-	let cookiesList = document.cookie.split('; ');
+	let degreePref;
+	let cookiesList = [];
+	cookiesList = document.cookie.split('; ');
 	// update degree prefference if found in cookies
 	for (let cookie of cookiesList) {
 		let key, value;
@@ -36,9 +43,15 @@ const checkCookies = () => {
 
 
 const checkLocalStorage = () => {
-	let degreePref;// = 'Celsius'; // default value if no user prefference in local storage
+	let degreePref, degree;
+	// catch and silence possible browser errors when searching the local storage
+	try {
+		degree = localStorage.getItem('degree');
+	} 
+	catch(err) {
+		console.log(err, 'Error caught and SILENCED!');
+	}
 	// update degree prefference if found in local storage
-	let degree = localStorage.getItem('degree');
 	if (degree) {
 		degreePref = degree;
 	}
@@ -53,10 +66,8 @@ const displayTemperature = () => {
 	const degreePrefLocalStorage = checkLocalStorage();
 	if (degreePrefCookies) {
 		degreePref = degreePrefCookies;
-		console.log('User degree prefference found in cookies.');
 	} else if (degreePrefLocalStorage) {
 		degreePref = degreePrefLocalStorage;
-		console.log('User degree prefference found in local storage.');
 	} else {
 		degreePref = 'Celsius';
 	}
@@ -67,10 +78,16 @@ const displayTemperature = () => {
 window.addEventListener('DOMContentLoaded', displayTemperature);
 
 
-// update degree value in cookies on user interaction
+// update degree value in cookies on user selection
 document.getElementById('preference').addEventListener('change', (event) => {
 	document.cookie = `degree=${event.target.value}`;
-	localStorage.setItem('degree', event.target.value);
+	// catch and silence possible browser errors when accessing the local storage
+	try {
+		localStorage.setItem('degree', event.target.value);
+	} 
+	catch(err) {
+		console.log(err, 'Error caught and SILENCED!');
+	}
 	displayTemperature();
 })
 

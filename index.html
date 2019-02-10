@@ -5,38 +5,20 @@
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
+
 	<input type="text" name="City" id="city" placeholder="Enter a different city" style="float: right">
+	
 	<div id="preference">
 		<label for="celsius">Celsius</label>
 		<input type="radio" name="pref" value="Celsius" id="celsius">
 		<label for="fahrenheit">Fahrenheit</label>
 		<input type="radio" name="pref" value="Fahrenheit" id="fahrenheit">
 	</div>
+
 	<p id="cookies">In cookies: no prefference</p>
 	<p id="local-storage">In local storage</p>
 
-
-	<div>
-		<ul>
-			<li>
-				<p>Troubleshooting</p>
-				<ul>
-					<li><p>SAFARI:<br>
-							If the temperature isn't loading a "SecurityError: The operation is insecure." occured, visible in the console<br>
-							GO TO: Safari/Prefferences/Advanced and check "Show develop menu in bar menu"<br>
-							GO TO: Develop and check "Disable Local File Restrictions"<br>
-							refresh the page.
-						</p></li>
-					<li><p>CHROME: <br>
-							Cookies don't work! Celsius is the default. Choosing Fahrenheit will save your prefference in local storage. </p></li>
-				</ul>
-			</li>
-		</ul>
-	</div>
-
 	<h2 id="temperature" align="center">Loading temperature in Cluj-Napoca</h2>
-
-	
 
 	<script src="./js/script.js"></script>
 </body>
